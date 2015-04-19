@@ -5,6 +5,7 @@
 class HandleTouchEvents {
   constructor($rootScope, $state, $window) {
     // touch events
+    delete Hammer.defaults.cssProps.userSelect;
     var mainElement = $window.document.getElementsByTagName(&#39;body&#39;)[0];
     var hammertime = new Hammer(mainElement);
     hammertime.on(&#39;panleft&#39;, function () {
@@ -17,7 +18,8 @@ class HandleTouchEvents {
 }
 
 export default HandleTouchEvents;
-</code></pre><p>As previously, add the following in <code>src/app.js</code> to make it work:</p>
+</code></pre><p>The use of <code>delete Hammer.defaults.cssProps.userSelect;</code> allows us to select text even with swipe-events. (Kind of important in a presentation like this.)</p>
+<p>As previously, add the following in <code>src/app.js</code> to make it work:</p>
 <pre><code>import HandleTouchEvents from &#39;./runs/handleTouchEvents&#39;
 angular.module(&#39;workshop&#39;).run(HandleTouchEvents);
 </code></pre>

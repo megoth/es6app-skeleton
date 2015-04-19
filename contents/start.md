@@ -10,4 +10,4 @@ Using [Angular](https://angularjs.org/) (with [UI Router](http://angular-ui.gith
 
 By [Arne Hassel](http://icanhasweb.net/) (frontend developer av [Questback](http://www.questback.com/))
 
-(You can navigate to next slide by pressing [right key], and back to previous slide [left key]; You can also swipe if you have a touch screen.)
+(You can navigate to next slide by pressing [right key], and back to previous slide [left key].)

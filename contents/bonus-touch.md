@@ -13,6 +13,7 @@ This code is located in ```src/runs/handleTouchEvents.js```:
     class HandleTouchEvents {
       constructor($rootScope, $state, $window) {
         // touch events
+        delete Hammer.defaults.cssProps.userSelect;
         var mainElement = $window.document.getElementsByTagName('body')[0];
         var hammertime = new Hammer(mainElement);
         hammertime.on('panleft', function () {
@@ -25,6 +26,8 @@ This code is located in ```src/runs/handleTouchEvents.js```:
     }
 
     export default HandleTouchEvents;
+
+The use of ```delete Hammer.defaults.cssProps.userSelect;``` allows us to select text even with swipe-events. (Kind of important in a presentation like this.)
 
 As previously, add the following in ```src/app.js``` to make it work:
 
