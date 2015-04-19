@@ -1,0 +1,4 @@
+<h1>Bonus - Generating slides</h1><p>The slides are located in the folder <code>contents</code>. I&#39;ve made use of <a href="http://wintersmith.io/">Wintersmith</a> to convert these markdown-files into HTML-files located in <code>slides</code>.</p>
+<p>All markdown-files make use of <code>templates/slide.jade</code>, which simply outputs the title and the content of the given file.</p>
+<p>There is one special MD-file though, and that is <code>content/slides.env.md</code> which makes use of <code>templates/slides.env.jade</code>. This file lists the order that the slides should be presented in and converts it to <code>src/slides.env.js</code>. A hack that makes sure I only have one place to maintain the order of slides used in the presentation.</p>
+<p>To automate the use of Wintersmith I&#39;ve made use of <a href="https://github.com/davidtucker/grunt-wintersmith">grunt-wintersmith</a>.</p>

@@ -1,0 +1,23 @@
+<h1>Creating the index directive</h1><p>With everything set up, we can implement our index directive in <code>src/directives/index.directive.js</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+import Index from &#39;./components/Index.jsx!&#39;;
+
+class IndexDirective {
+  constructor(slidesService) {
+    return function (scope, element) {
+      scope.$on(&#39;$stateChangeSuccess&#39;, function () {
+        var indexElement = React.createElement(Index, { 
+          slides: slidesService.get()
+        });
+        React.render(indexElement, element[0]);
+      });
+    }
+  }
+}
+
+export default IndexDirective;
+</code></pre><p>As previously noted, this code doesn&#39;t do much more then the navigation directive, it simply ties together other pieces.</p>
+<p>To enable the directive in our application, we need to tie it into <code>src/app.js</code>:</p>
+<pre><code>import IndexDirective from &#39;./directives/index.directive&#39;;
+angular.module(&#39;workshop&#39;).directive(&#39;presentationIndex&#39;, IndexDirective);
+</code></pre>

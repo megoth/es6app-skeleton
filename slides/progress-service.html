@@ -1,0 +1,36 @@
+<h1>Setting up services for the progress directive</h1><p>When working with Angular applications, it is adviced to code communication with external resources such as APIs and socket connections into services. We&#39;ll start coding the progress component by doing just that, as we centralize our communication using sockets into <code>src/services/socket.service.js</code>.</p>
+<p>Lets start by implementing the protocols required by the progress component:</p>
+<pre><code>class SocketService {
+  constructor() {
+    var host = location.origin.replace(/^http/, &#39;ws&#39;);
+    var socket = this.socket = io(host);
+  }
+
+  emitProgress(slide) {
+    this.socket.emit(&#39;updateProgress&#39;, slide.step);
+  }
+
+  onProgressUpdate(eventListener) {
+    this.socket.on(&#39;updateProgressList&#39;, eventListener);
+  }
+}
+
+export default SocketService;
+</code></pre><p>Socket.IO uses two ways of communicating using sockets, <code>(socket).emit()</code> and <code>(socket).on()</code>. The former sends messages, by taking in the message and data (if any) to be passed to the server, while the latter receives updates from the server. To process the updates we pass a callback function that exposes whatever data is passed from the server.</p>
+<p>In our service we&#39;ve implemented the listeners so that they&#39;re supplied by the utilizing components, in effect delegating the handling of logic (another fine use of callback functions).</p>
+<p>We include this service into our growing application environment by adding the following in <code>src/app.js</code>:</p>
+<pre><code>import SocketService from &#39;./services/socket.service&#39;;
+angular.module(&#39;workshop&#39;).service(&#39;socketService&#39;, SocketService);
+</code></pre><p>As we need to tell the server when we navigate throughout our slides, we can again make use of <code>src/services/slides.service.js</code>:</p>
+<pre><code>class SlidesService {
+  constructor($state, slidesFactory, $rootScope, socketService) {
+    [...]
+    $rootScope.$on(&#39;$stateChangeSuccess&#39;, function (event, state) {
+      [...]
+      socketService.emitProgress(state.slide);
+    });
+  }
+
+  [...]
+}
+</code></pre>

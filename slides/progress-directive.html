@@ -1,0 +1,25 @@
+<h1>Setting up the progress directive</h1><p>To conclude the progress component we need to implement the Angular directive. Lets do this in <code>src/directives/progress.directive.js</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+import Progress from &#39;./components/Progress.jsx!&#39;;
+
+class ProgressDirective {
+  constructor(slidesService, socketService) {
+    var slides = slidesService.get();
+    return function (scope, element) {
+      socketService.onProgressUpdate(function (list) {
+        var progressElement = React.createElement(Progress, {
+          steps: list,
+          slides: slides
+        });
+        React.render(progressElement, element[0]);
+      });
+    }
+  }
+}
+
+export default ProgressDirective;
+</code></pre><p>The only big difference from our previous directives are the use of <code>socketService</code>. our event listener ensures that whenever there&#39;s an update from the server, the element is rendered anew.</p>
+<p>To make this available in our application, remember to tie it into <code>src/app.js</code>:</p>
+<pre><code>import ProgressDirective from &#39;./directives/progress.directive&#39;;
+angular.module(&#39;workshop&#39;).directive(&#39;progressList&#39;, ProgressDirective);
+</code></pre>

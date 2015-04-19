@@ -1,0 +1,74 @@
+<h1>Bonus - How the server works</h1><p>The server resides in <code>server.js</code> and can be run using <code>node server</code>. The following is a breakdown of the script:</p>
+<pre><code>var path = require(&#39;path&#39;);
+var express = require(&#39;express&#39;);
+var app = express();
+var port = process.env.PORT || 8282;
+
+var staticPath = path.resolve(__dirname, &#39;.&#39;);
+app.use(express.static(staticPath));
+</code></pre><p>This sets up the Express server, and tells it to simply relay the files that are located in the same folder as the script.</p>
+<p>The <code>process.env.PORT</code> is important when we want to use our application with Heroku. This gives the port that Heroku internally prepares for the application.</p>
+<pre><code>var socket = require(&#39;socket.io&#39;);
+var io = socket.listen(app.listen(port));
+var sockets = [];
+</code></pre><p>This part sets up the basics for our sockets. The second line tells Socket.IO to expose itself to the client. As we maintain a list of connections to the server, we prepare that with an empty array.</p>
+<pre><code>io.sockets.on(&#39;connection&#39;, function (socket) {
+  // setup
+  sockets.push(socket);
+  // events
+  socket.on(&#39;isAskingForHelp&#39;, function (username, isAskingForHelp) {
+    socket.username = username;
+    socket.isAskingForHelp = isAskingForHelp;
+  });
+  socket.on(&#39;updateProgress&#39;, function (slideStep) {
+    socket.step = slideStep;
+  });
+});
+</code></pre><p>This handles all incomming connections. We add the data given from clients to the socket, so that we can reuse those later on. (It might be a bit hacky, but it works.) When we iterate over our sockets later on, we have all the info we need.</p>
+<pre><code>setInterval(function () {
+  sockets = sockets.filter(function (socket) {
+    return socket.connected;
+  });
+  emitPleads(sockets);
+  emitProgress(sockets);
+}, 100);
+</code></pre><p>Once every 100 milliseconds we update our clients with the latest updates. Our use of React to render components makes this a relatively safe thing to do in terms of performance. If we&#39;ve used standard Angular-functionality to render the views, we would have constant rerendering.</p>
+<pre><code>// plead functionality
+function emitPleads(sockets) {
+  var pleads = getPleadList(sockets);
+  pleads.sort(function (a, b) {
+    return a.progress - b.progress;
+  });
+  sockets.forEach(function (socket) {
+    socket.emit(&#39;updatePleadsList&#39;, pleads);
+  });
+}
+
+function getPleadList(sockets) {
+  return sockets.filter(function (socket) {
+    return socket.isAskingForHelp;
+  }).map(function (socket) {
+    return {
+      username: socket.username,
+      progress: socket.step
+    }
+  });
+}
+</code></pre><p>These two functions handle the internal workings of the help functionality.</p>
+<pre><code>// progress functionality
+function emitProgress(sockets) {
+  var progressList = getProgressList(sockets);
+  sockets.forEach(function (socket) {
+    socket.emit(&#39;updateProgressList&#39;, progressList);
+  });
+}
+
+function getProgressList(sockets) {
+  var progress = [];
+  sockets.forEach(function (socket) {
+    var step = socket.step;
+    progress[step] = (progress[step] || 0) + 1;
+  });
+  return progress;
+}
+</code></pre><p>Lastly, these two functions handle the internal workings of the progress functionality.</p>

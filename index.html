@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workshop with ES6, JSPM, Angular, React, +++</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-app="workshop">
+  <div role="main">
+    <ui-view>Loading...</ui-view>
+    <presentation-navigation></presentation-navigation>
+  </div>
+  <aside id="updates">
+    <progress-list></progress-list>
+    <help-queue></help-queue>
+  </aside>
+  <aside role="directory" presentation-index></aside>
+  <script src="jspm_packages/system.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="config.js"></script>
+  <script>
+    System.import('src/app');
+  </script>
+</body>
+</html>

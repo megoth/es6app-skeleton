@@ -1,0 +1,20 @@
+<h1>Setting up dependencies for the socket server</h1><p>Until now we&#39;ve used a simple http-server to serve static files. But for our next components we want to have asynchronous communication across multiple clients, which we&#39;ll implement using <a href="https://developer.mozilla.org/en/docs/WebSockets">WebSockets</a>. But this isn&#39;t supported with our simple server, so we need something else.</p>
+<p><a href="http://expressjs.com/">Express</a> is a server framework that allows us to easily set up a http server, but which is also easy to extend. <a href="http://socket.io/">Socket.IO</a> is a WebSockets implementation that is easy to set up with Express.</p>
+<p>I&#39;ve already created a server in <code>server.js</code>, but I haven&#39;t installed Express and Socket.IO. Run the following to enable them in our application:</p>
+<pre><code>npm install express
+npm install socket.io
+</code></pre><p>(If we were to run these with <code>--save</code> or <code>--save-dev</code> as options, they would be added to <code>package.json</code> in addition.)</p>
+<p>Our server is now ready to be run with Node:</p>
+<pre><code>node server
+</code></pre><p>(If you want ease your development with Node applications, I can recommend <a href="http://nodemon.io/">nodemon</a>, which restarts your node-applications whenever you save the files depended by the application.)</p>
+<p>As a last step we need to expose Socket.IO to our frontend. Socket.IO automatically prepares a script at <code>/socket.io/socket.io.js</code>, so we only need to include the following in <code>index.html</code>:</p>
+<pre><code>&lt;script src=&quot;/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>This exposes <code>io</code> as a global variable. If we wanted to expose it as an Angular service, e.g. for testing purposes, we could do the following:</p>
+<pre><code>class IOService {
+  constructor($window) {
+    return $window.io;
+  }
+}
+
+export default IOService;
+</code></pre><p>But for this workshop, we&#39;re satisfied with it being a global variable.</p>

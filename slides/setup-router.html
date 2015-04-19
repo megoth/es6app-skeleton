@@ -1,0 +1,51 @@
+<h1>Setting up the router</h1><p>To ease the work with routing we&#39;ll make use of <a href="https://github.com/angular-ui/ui-router">UI Router</a>. It&#39;s much better than Angular&#39;s default <a href="https://docs.angularjs.org/api/ngRoute/provider/$routeProvider">$routeProvider</a> (IMHO).</p>
+<p>To make it accessible for angular, we need to add UI Router to the list of dependencies. We do this by modifying <code>src/app.js</code>:</p>
+<pre><code>angular.module(&#39;workshop&#39;, []);
+</code></pre><p>to</p>
+<pre><code>import &#39;angular-ui/ui-router&#39;;
+angular.module(&#39;workshop&#39;, [&#39;ui.router&#39;]);
+</code></pre><p>UI Router operates with states, which are reachable by given URLs. States can be assigned into a hierarchy of states, e.g. state <code>foo.bar</code> is a child state <code>foo</code>. By default UI Router adds an abstract state as the root state of all states, but apart from this we won&#39;t bother with hierarchies of states in this application.</p>
+<p>Let&#39;s create our first state in <code>src/router.config.js</code>:</p>
+<pre><code>class RouterConfig {
+  constructor($stateProvider, $urlRouterProvider) {
+    $stateProvider.state(&#39;start&#39;, {
+      url: &#39;/start&#39;,
+      templateUrl: &#39;slides/start.html&#39;
+    });
+
+    $urlRouterProvider.otherwise(&#39;/start&#39;);
+  }
+}
+</code></pre><p>Here is a class named RouterConfig that has a constructor that takes in <code>$stateProvider</code> and <code>$urlRouterProvider</code>. These <em>services</em> are provided by UI Router, and will be provided by <a href="https://docs.angularjs.org/guide/di">Angulars Dependency Injection</a> when we link the class to Angular. To expose it we need to append the following:</p>
+<pre><code>export default RouterConfig;
+</code></pre><p>We link it to Angular by adding the following to <code>src/app.js</code>:</p>
+<pre><code>import RouterConfig from &#39;./router.config&#39;;
+angular.module(&#39;workshop&#39;).config(RouterConfig);
+</code></pre><p>The <code>config</code>-part of Angular enables us to add separate configurations that are processed before services, factories, controllers, directives, and filters (we&#39;ll see more of all these, except filters, later on).</p>
+<p>If we now visit our application at <a href="http://localhost:8282/">localhost:8282</a>, we should see the first slide being loaded.</p>
+<p>As you probably have noticed, the slides are loaded into the <code>ui-view</code>-element. This is how we tell UI Router where it should load the templates we describe in our states. UI Router supports <a href="https://github.com/angular-ui/ui-router/wiki/Multiple-Named-Views">Multiple Named Views</a>, but in this application we&#39;ll stick with one unnamed.</p>
+<h2 id="automating-the-creation-of-states">Automating the creation of states</h2>
+<p>Now, to add all slides one by one is a bit cumbersome, so we have a little trick up our sleeve. All the slides are exposed as an array in <code>src/slides.env.js</code>. We are also going to need a short version of each slides&#39; title later on, so we&#39;ll add this as well.</p>
+<p>Modify <code>src/router.config.js</code> to:</p>
+<pre><code>import slides from &#39;./slides.env&#39;;
+
+class RouterConfig {
+  constructor($stateProvider, $urlRouterProvider) {
+    slides.forEach(function (slide) {
+      $stateProvider.state(slide.name, {
+        url: &#39;/&#39;+slide.name,
+        templateUrl: &#39;slides/&#39;+slide.name+&#39;.html&#39;,
+        data: {
+          title: slide.title,
+          short: slide.short
+        }
+      });
+    });
+
+    $urlRouterProvider.otherwise(&#39;/start&#39;);
+  }
+}
+
+export default RouterConfig;
+</code></pre><p>The main change in this code is the use of <code>Array.prototype.forEach</code>. This is an example of how JavaScript treats functions as first-class citizens (i.e. functions can be stored as variables, passed as parameters, etc): <code>Array.prototype.forEach</code> takes a function, which is uses to iterate over the array on which it is called (in this case the variable <code>slides</code>, which is loaded from <code>./slides.env</code>).</p>
+<p>We can now access our slides by inserting <code>http://localhost:8282/#/&lt;name of slide&gt;</code> into our address bar. But that&#39;s not good usability, so let us add some navigation components.</p>

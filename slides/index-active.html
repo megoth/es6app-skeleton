@@ -1,0 +1,21 @@
+<h1>Extending the slides with active functionality</h1><p>To express the state active in a given slide, we extend the class Slide with property <code>active</code> that is false by default (in <code>src/factories/slides.factory.js</code>):</p>
+<pre><code>class Slide {
+  constructor(name, title, short, url) {
+    [...]
+    this.active = false;
+  }
+}
+</code></pre><p>In <code>src/services/slides.service.js</code> we need a method that handles that the active property is correct across all our slides:</p>
+<pre><code>class SlidesService {
+  constructor($state, slidesFactory, $rootScope) {
+    [...]
+    $rootScope.$on(&#39;$stateChangeSuccess&#39;, function (event, state) {
+      slides.forEach(function (slide) {
+        slide.active = slide.name === state.name;
+      });
+    });
+  }
+
+  [...]
+}
+</code></pre><p>This should be enough so that we can start creating our React components.</p>

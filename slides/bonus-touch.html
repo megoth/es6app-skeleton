@@ -1,0 +1,23 @@
+<h1>Bonus - Adding touch-events</h1><p>To handle touch events I&#39;ve basicly done the same as with keyevents, but made use of <a href="http://hammerjs.github.io/">Hammer.JS</a> to handle the events (<em>panleft</em> and <em>panright</em> to be more exact).</p>
+<p>This code is located in <code>src/runs/handleTouchEvents.js</code>:</p>
+<pre><code>import Hammer from &#39;hammerjs/hammer.js&#39;;
+
+class HandleTouchEvents {
+  constructor($rootScope, $state, $window) {
+    // touch events
+    var mainElement = $window.document.getElementsByTagName(&#39;body&#39;)[0];
+    var hammertime = new Hammer(mainElement);
+    hammertime.on(&#39;panleft&#39;, function () {
+      $state.current.slide.goNext($state);
+    });
+    hammertime.on(&#39;panright&#39;, function () {
+      $state.current.slide.goPrevious($state);
+    });
+  }
+}
+
+export default HandleTouchEvents;
+</code></pre><p>As previously, add the following in <code>src/app.js</code> to make it work:</p>
+<pre><code>import HandleTouchEvents from &#39;./runs/handleTouchEvents&#39;
+angular.module(&#39;workshop&#39;).run(HandleTouchEvents);
+</code></pre>

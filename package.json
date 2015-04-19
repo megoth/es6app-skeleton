@@ -1,0 +1,40 @@
+{
+  "name": "es6app-skeleton",
+  "version": "0.0.1",
+  "description": "The skeleton of a presentation app written in ES6",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "0.12.2"
+  },
+  "license": "MIT",
+  "jspm": {
+    "directories": {
+      "lib": ".",
+      "packages": "jspm_packages"
+    },
+    "dependencies": {
+      "angular": "github:angular/bower-angular@^1.3.14",
+      "angular-ui/ui-router": "github:angular-ui/ui-router@^0.2.13",
+      "hammerjs/hammer.js": "github:hammerjs/hammer.js@^2.0.4",
+      "jsx": "github:floatdrop/plugin-jsx@^1.1.0",
+      "react": "npm:react@^0.13.0"
+    }
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-compass": "^1.0.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-http-server": "^1.2.0",
+    "grunt-markdown": "^0.7.0",
+    "grunt-wintersmith": "0.0.2",
+    "load-grunt-config": "^0.16.0",
+    "load-grunt-tasks": "^3.1.0"
+  }
+}

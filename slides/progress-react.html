@@ -1,0 +1,38 @@
+<h1>Setting up React components for the progress directive</h1><p>As with the index component, we want to divide our progress component into two parts; the list and the list item.</p>
+<p>The list item is a very easy component (in <code>src/directives/components/ProgressItem.jsx</code>):</p>
+<pre><code>import React from &#39;react&#39;;
+
+class ProgressItem extends React.Component {
+  render() {
+    return (
+      &lt;li key={this.props.key}&gt;Slide {this.props.step} ({this.props.number})&lt;/li&gt;
+    );
+  }
+}
+
+export default ProgressItem;
+</code></pre><p>The component needs three properties set, namely <em>key</em>, <em>step</em>, and <em>number</em>. Lets do this in <code>src/directives/components/Progress.jsx</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+import ProgressItem from &#39;./ProgressItem.jsx!&#39;;
+
+class Progress extends React.Component {
+  render() {
+    var slides = this.props.slides;
+    var steps = this.props.steps.map(function (number, index) {
+      return number 
+        ? &lt;ProgressItem key={index} step={slides[index].step} number={number} /&gt;
+        : null;
+    });
+    return (
+      &lt;div&gt;
+        &lt;h2&gt;Progress&lt;/h2&gt;
+        &lt;ul&gt;
+          {steps}
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default Progress;
+</code></pre><p>This component ensures that the represented slide actually have a number; if not, it ignores the element. It needs two properties to be set, namely <em>slides</em> and <em>steps</em>. This is to be supplied by the progress directive.</p>

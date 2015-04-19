@@ -1,0 +1,7 @@
+<h1>Bonus - Uploading the application to Heroku</h1><p>I recommend going through the articles on <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction">Getting started with Node.js on Heroku</a>; it sets up everything you need to know.</p>
+<p>But besides that there are some gotchas in this application.</p>
+<p>First of all, I&#39;ve been unsuccessful in bundling the script-files, which means I need to upload all dependencies in <code>jspm_packages</code>. I could probably&#39;ve singled out the ones I need, but I&#39;m lazy so I uploaded all of it.</p>
+<p>As this is a dirty hack, I don&#39;t want to it affect my main repo. For this purpose I branched out for Heroku, creating the branch heroku. This forces me to maintain two branches, but it&#39;s not that big of a deal. (I usually just do <code>git merge master</code> when I&#39;m on the heroku branch and push it Heroku when I feel like updating the Heroku app.)</p>
+<p>Given that you&#39;ve added Heroku as a remote on the git repo, you can run the following when you have a repo on the heroku-branch you want to upload:</p>
+<pre><code>git push heroku heroku:master
+</code></pre><p>This uploads the local branch heroku to remote branch master on the endpoint heroku.</p>

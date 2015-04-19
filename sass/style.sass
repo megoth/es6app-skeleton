@@ -1,0 +1,161 @@
+@import compass/reset
+@import compass/css3
+@import compass/utilities
+
+$break-small: 40em
+$break-large: 60em
+
+$color-body-background: #f0db4f
+$color-body-link: #6371BB
+$color-body-text: #323330
+$color-code-background: #323330
+$color-code-text: #f0db4f
+$color-main-background: #fff
+$color-main-text: #000
+
+@mixin box($radius)
+	+border-radius($radius)
+	+box-shadow
+	background-color: $color-main-background
+	color: $color-main-text
+	padding: $radius
+	a
+		color: $color-body-link
+		&:hover
+			text-decoration: underline
+	h1, h2
+		color: $color-main-text
+		font-weight: bold
+		line-height: 1em
+		-webkit-text-stroke-color: $color-main-background
+	h1 ~ h2,
+	h1 ~ h3
+		border-style: dotted
+	nav a
+		color: $color-main-text
+		&:hover
+			text-decoration: none
+
+body
+	background-color: $color-body-background
+	background-image: url('../img/logo.png')
+	background-position: bottom center
+	background-repeat: no-repeat
+	font-family: Arial, Times New Roman
+	line-height: 1.25em
+	margin: 0.5em
+	padding-bottom: 100px
+	> aside,
+	> [role="main"]
+		+box-sizing
+
+	@media screen and (max-width: $break-large)
+		> [role="directory"],
+		> [role="main"],
+		progress-list > div,
+		help-queue > div
+			+box(0.5em)
+			margin-bottom: 1em
+
+	@media screen and (min-width: $break-large)
+		@include display-flex
+		@include flex-wrap(wrap)
+		$main-width: 60%
+		background-position: bottom right
+		margin: 1em 0
+		padding-bottom: 0
+		width: 100%
+		> * 
+			padding: 0.5em
+		> aside
+			color: $color-body-text
+			width: (100% - $main-width) / 2
+			&[role="directory"]
+				+order(0)
+			&#updates
+				+order(2)
+		> [role="main"]
+			+box(1em)
+			+order(1)
+			margin: 0 1%
+			width: $main-width - 2%
+
+a
+	color: $color-main-text
+	text-decoration: none
+
+[role="main"]
+	line-height: 1.5em
+	nav
+		+clearfix
+		border-top: solid 1px $color-main-text
+		margin-top: 1em
+		padding-top: 0.5em
+		[rel="next"]
+			float: right
+			i
+				margin-left: 0.25em
+		[rel="prev"]
+			float: left
+			i
+				margin-right: 0.25em
+
+code
+	+border-radius(4px)
+	background-color: $color-code-background
+	color: $color-code-text
+	font-family: Lucida Console, Courier New, Monaco
+	padding: 2px 4px
+	vertical-align: middle
+em
+	font-style: italic
+h1, h2, h3, h4, h5, h6
+	border-bottom: solid 1px $color-body-text
+	font-family: Tahoma, Verdana
+	font-weight: bolder
+	line-height: 1.15em
+	margin: 0.25em 0 0.5em
+h1, h2
+	-webkit-text-stroke-color: $color-body-background
+	-webkit-text-stroke-width: 1px
+h1 
+	font-size: 2em
+h2
+	font-size: 1.5em
+ol,
+ul
+	margin-bottom: 0.75em
+	li
+		margin-bottom: 0.5em
+	p
+		margin-bottom: 0.5em
+ol
+	list-style-type: decimal
+	margin-left: 1.25em
+p
+	margin-bottom: 0.75em
+pre code
+	+box-shadow
+	display: block
+	line-height: 1em
+	margin: 0.5em 0 0.75em
+	overflow-x: auto
+	padding: 0.5em
+strong
+	font-weight: bold
+u
+	text-decoration: underline
+ul
+	list-style-type: disc
+	margin-left: 1.25em
+
+nav
+	a
+		display: block
+		&:hover
+			font-weight: bold
+	ul
+		list-style-type: none
+		margin-left: 0
+		.active
+			font-weight: bold

@@ -1,0 +1,74 @@
+<h1>Setting up React components for help queue directive</h1><p>The help queue component consists of three parts - the list, the list items, and the button. As most of them repeat the same patterns as before, I&#39;ll just dump the code-snippets here.</p>
+<h2 id="the-list">The list</h2>
+<p>The list takes the properties users, that refers to the users needing help, and handleUserInput, which is a function that is to be called whenever the user needs help.</p>
+<p><code>src/directives/components/HelpQueue.jsx</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+import HelpButton from &#39;./HelpButton.jsx!&#39;;
+import HelpUser from &#39;./HelpUser.jsx!&#39;;
+
+class HelpQueue extends React.Component {
+  render() {
+    var users = this.props.users.map(function (user, index) {
+      return &lt;HelpUser key={index} user={user} /&gt;
+    });
+    return (
+      &lt;div&gt;
+        &lt;h2&gt;Help queue&lt;/h2&gt;
+        &lt;ul&gt;
+          {users}
+          &lt;HelpButton onClick={this.props.handleUserInput}&gt;&lt;/HelpButton&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default HelpQueue;
+</code></pre><h2 id="the-list-item">The list-item</h2>
+<p><code>src/directives/components/HelpUser.jsx</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+
+class HelpUser extends React.Component {
+  render() {
+    return (
+      &lt;li key={this.props.key}&gt;
+        {this.props.user.username} ({this.props.user.progress})
+      &lt;/li&gt;
+    );
+  }
+}
+
+export default HelpUser;
+</code></pre><h2 id="the-button">The button</h2>
+<p><code>src/directives/components/HelpButton.jsx</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+
+class HelpButton extends React.Component {
+  handleClick() {
+    this.username = this.getUsername();
+    if (!this.username || this.username === &#39;&#39;) {
+      return;
+    }
+    this.isAskingForHelp = !this.isAskingForHelp;
+    this.props.onClick(this.username, this.isAskingForHelp);
+  }
+
+  getUsername() {
+    return this.username || prompt(&#39;Please enter a username&#39;);
+  }
+
+  render() {
+    var buttonText = this.isAskingForHelp ? &#39;I\&#39;m good&#39; : &#39;I need help&#39;;
+    return (
+      &lt;form&gt;
+        &lt;button onClick={this.handleClick.bind(this)} type=&quot;button&quot;&gt;
+          {buttonText}
+        &lt;/button&gt;
+      &lt;/form&gt;
+    );
+  }
+}
+
+export default HelpButton;
+</code></pre><p>The important thing to note here is how we&#39;ve added two additional methods to HelpButton, <em>handleClick</em> and <em>getUsername</em>. The former is called from the render-method, and what&#39;s important here is to note the use of <code>Function.prototype.bind</code>. This is a method that allows us to override the default <em>this</em>-variable in a given function. Without getting to much into it (<em>this</em> can be really confusing in JS at times), it allows us to ensure that the context that handleClick runs in refers to the same as render().</p>
+<p>Also note the use of the property onClick; this is a function passed down from HelpQueue, which in turn will get it from the HelpQueueDirective. This is the function that handles whenever the user clicks the button for help. It takes a username and a boolean that refers the toggling boolean of the users need of help.</p>

@@ -1,0 +1,44 @@
+<h1>Creating the React components for the index directive</h1><p>Lets start by inserting the code for <code>src/directives/components/Index.jsx</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+import Slide from &#39;./Slide.jsx!&#39;;
+
+class Index extends React.Component {
+  render() {
+    var slides = this.props.slides.map(function (slide, index) {
+      return &lt;Slide key={index} slide={slide} /&gt;;
+    });
+    return (
+      &lt;nav&gt;
+        &lt;h2&gt;Index&lt;/h2&gt;
+        &lt;ul&gt;
+          {slides}
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    );
+  }
+}
+
+export default Index;
+</code></pre><p>This code does much of the same as for the navigation component. But there are some additions:</p>
+<ol>
+<li>It imports another React component, namely <code>Slide.jsx</code>; we&#39;ll go through that one next</li>
+<li>It makes use of the Slide component as a tag, and supplies the properties as attributes</li>
+<li>It also makes use <code>Array.prototype.map</code>, which is to show that everything you can do in plain JavaScript can also be done in JSX-files (as they are extensions for plain JS).</li>
+</ol>
+<p>Next, the code for <code>src/directives/components/Slide.jsx</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+
+class Slide extends React.Component {
+  render() {
+    return (
+      &lt;li className={this.props.slide.active ? &#39;active&#39;: &#39;&#39;} 
+          key={this.props.key}&gt;
+        &lt;a href={this.props.slide.url}&gt;{this.props.slide.short}&lt;/a&gt;
+      &lt;/li&gt;
+    );
+  }
+}
+
+export default Slide;
+</code></pre><p>Something to note in this code is the use of the key-attribute. When you insert React components into other React components, React advices you to add a key to your child components, to make debugging easier.</p>
+<p>It also makes use of a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator">conditional (ternary) operator</a>, which has the syntax <code>condition ? expr1 : expr2</code>, where expr1 is returned if the condition is true, and expr2 is returned if the condition is false. This is a handy function that&#39;s also available in many other programming languages.</p>

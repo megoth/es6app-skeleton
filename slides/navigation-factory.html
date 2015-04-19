@@ -1,0 +1,32 @@
+<h1>Creating slides with a factory</h1><p>We`ll create SlidesFactory in <code>src/factories/slides.factory.js</code>. First, let us express the <em>Slide</em> as a class:</p>
+<pre><code>class Slide {
+  constructor(name, title, short, url) {
+    this.name = name;
+    this.title = title;
+    this.short = short;
+    this.url = url;
+  }
+}
+</code></pre><p>This class basicly maps the state-object, and is very simple at this point. We want to expand it with more functionality later on, but for now, lets stick with this.</p>
+<p>Next, lets look at a very simple implementation of the <em>SlidesFactory</em>:</p>
+<pre><code>class SlidesFactory {
+  constructor() {
+    return {
+      fromState: function (state) {
+        return new Slide(
+          state.name, 
+          state.data.title, 
+          state.data.short, 
+          $state.href(state.name)
+        );
+      }
+    }
+  }
+}
+</code></pre><p>Important to note in this is that the constructor returns a new object that contains one method for creating a slide from a given state. This kind of nullifies the use of class, but is a constraint when creating Angular factories.</p>
+<p>To expose this we add the following to <code>src/factories/slides.factory.js</code>:</p>
+<pre><code>export default SlidesFactory;
+</code></pre><p>Next we&#39;ll need to expose the factory the Angular environment. We do that by adding the following to <code>src/app.js</code>:</p>
+<pre><code>import SlidesFactory from &#39;./factories/slides.factory&#39;;
+angular.module(&#39;workshop&#39;).factory(&#39;slidesFactory&#39;, SlidesFactory);
+</code></pre>

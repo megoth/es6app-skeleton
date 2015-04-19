@@ -1,0 +1,11 @@
+<h1>Cloning the skeleton repository</h1><p>Now that we have all our tools available, navigate to where you want to put your repository, and run:</p>
+<pre><code>git clone https://github.com/megoth/es6app-skeleton
+</code></pre><p>This downloads all the files necessary for this workshop. The files we will focus are located in the <code>src</code>-folder (most of them are empty; we&#39;ll write them as we go though this presentation).</p>
+<p>Next, navigate into the folder and run:</p>
+<pre><code>npm install
+jspm install
+</code></pre><p>The former installs all NPM-dependencies used for backend development, while the latter installs all jspm-dependencies used for frontend development.</p>
+<p>(I&#39;ve mostly added all dependencies needed already, which can be seen in <code>package.json</code>, but when we go through setting up our advanced server, I&#39;ll show you how you can add new dependencies.)</p>
+<p>With all of this setup done, we can now run our application by running the default Grunt task:</p>
+<pre><code>grunt
+</code></pre><p>This fires up a simplified HTTP server, which serves our application at <a href="http://localhost:8282/">localhost:8282</a>. As it doesn&#39;t do anything yet, opening the page will be a sad sight... let&#39;s do something about that!</p>

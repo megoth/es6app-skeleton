@@ -1,0 +1,42 @@
+<h1>Handling slides with a service</h1><p>Lets put SlidesService into <code>src/services/slides.service.js</code>. We&#39;ll start by coding the constructor:</p>
+<pre><code>class SlidesService {
+  constructor($state, slidesFactory) {
+    var states = $state.get().filter(function (state) {
+      return !state.abstract;
+    });
+    var slides = this.slides = states.map(function (state) {
+      var slide = slidesFactory.fromState(state);
+      state.slide = slide;
+      return slide;
+    });
+    this.slides.forEach(function (slide, index) {
+      slide.step = index;
+      slide.previous = slides[index - 1];
+      slide.next = slides[index + 1];
+    });
+  }
+}
+</code></pre><p>The code in the constructor can be grouped into three parts:</p>
+<ol>
+<li><p>The <code>$state.get().filter(...);</code>: This code starts by getting all states via $state.get(), and then makes use of <code>Array.prototype.filter</code>. Filter allows us to pass it a function that returns a boolean, and which it uses to loop through all elements in the array; if it returns true, the tested item is included in a new array, if it returns false it is discarded.</p>
+<p>The result is an array of states that excludes the abstract state that UI Router uses as a root of all states.</p>
+</li>
+<li><p>We make use of another nifty function called <code>Array.prototype.map</code>: This creates a new array based on an array, meaning they have the equal amount of elements, but (should) represent two different list of entities.</p>
+<p>The array we map is a list of slides corresponding to our list of states. In addition, we add each corresponding slide to the state, for easy access to slides through the state they represent.</p>
+</li>
+<li>At last we loop through our slides and updates the <code>step</code>, <code>previous</code> and <code>next</code> property.</li>
+</ol>
+<p>We need a way for our components to get the slides, so we implement the method <code>get</code>:</p>
+<pre><code>get(stateName) {
+  return stateName ? this.slides.reduce(function (memo, slide) {
+    return memo ? memo : (slide.name === stateName ? slide : memo);
+  }, null) : this.slides;
+}
+</code></pre><p>The method may take a paramenter, which is the name of the requested state. If no parameter is given, it returns the whole list of slides. If a name is given, it makes use of <code>Array.prototype.reduce</code> which reduces the array into one single element, namely the element on which the name-property matches the given name.</p>
+<p>At last we need to expose our module to the other parts of the system:</p>
+<pre><code>export default SlidesService;
+</code></pre><p>And this is tied into <code>src/app.js</code> with:</p>
+<pre><code>import SlidesService from &#39;./services/slides.service&#39;;
+angular.module(&#39;workshop&#39;).service(&#39;slidesService&#39;, SlidesService);
+</code></pre><h2 id="a-note-on-functions-that-make-use-of-callback-functions">A note on functions that make use of callback functions</h2>
+<p>The fact that JavaScript handles functions as first-class citizens are really useful! Methods such as <em>forEach</em>, <em>map</em>, <em>reduce</em> and <em>filter</em> makes our codebase significantly less complex. They may be a bit hard to understand in the beginning, but they are worth getting to know.</p>

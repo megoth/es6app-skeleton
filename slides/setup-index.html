@@ -1,0 +1,39 @@
+<h1>Setting up index.html</h1><p>Lets start by taking a look at the markup of our application. Open <code>./index.html</code> in your text-editor of choice.</p>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Workshop with ES6, JSPM, Angular, React, +++&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div role=&quot;main&quot;&gt;
+    &lt;ui-view&gt;Loading...&lt;/ui-view&gt;
+    &lt;presentation-navigation&gt;&lt;/presentation-navigation&gt;
+  &lt;/div&gt;
+  &lt;aside id=&quot;updates&quot;&gt;
+    &lt;progress-list&gt;&lt;/progress-list&gt;
+    &lt;help-queue&gt;&lt;/help-queue&gt;
+  &lt;/aside&gt;
+  &lt;aside role=&quot;directory&quot; presentation-index&gt;&lt;/aside&gt;
+  &lt;script src=&quot;jspm_packages/system.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;config.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    System.import(&#39;src/app&#39;);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Starting from the top we see some standard content that sets up the meta-information and stylesheet for the page. This is necessary for the application, but of no interest for this workshop; what interests us lies in the body:</p>
+<ul>
+<li>Within the <code>&lt;div role=&quot;main&quot;&gt;</code> there is the <a href="http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.directive:ui-view">uiView-directive</a>: We&#39;ll use this later on to load our slides.</li>
+<li>Right below it we see <code>&lt;presentation-navigation&gt;&lt;/presentation-navigation&gt;</code>: This will be implemented as an Angular directive that will handle the navigation between slides (i.e. &quot;Next&quot; and &quot;Previous&quot;-links).</li>
+<li>Within the first aside-element, we find the modules that will handle updates from our advanced server later on:<ul>
+<li>The progress list, that lists all visitors to the presentation within a summarized overview of the visitors progress, and</li>
+<li>The help module, where visitors can request help by clicking a button</li>
+</ul>
+</li>
+<li>The second aside-element sports the attribute <code>presentation-index</code>: Here we implement an Angular directive that displays a navigation-list that allows us to jump to anywhere we want in the presentation.</li>
+<li>The last part of the document implements the necessary scripts to get our JavaScript up and running: <a href="https://github.com/systemjs/systemjs">SystemJS</a> is bundled with jspm, and works as a universal dynamic loader module. Together with config.js, which is automatically curated by jspm, and the import of ´´´src/app´´´, we can start coding our JavaScript.</li>
+</ul>

@@ -1,0 +1,41 @@
+---
+template: slides.env.jade
+order:
+- start
+- intro
+- tips
+- install-node
+- install-jspm
+- install-grunt
+- install-git
+- clone-repo
+- setup-index
+- setup-angular
+- setup-router
+- navigation-planning
+- navigation-factory
+- navigation-service
+- navigation-react
+- navigation-directive
+- index-planning
+- index-active
+- index-react
+- index-directive
+- server-setup
+- server-sockets
+- progress-service
+- progress-react
+- progress-directive
+- help-service
+- help-react
+- help-directive
+- conclusion
+- bonus-slides
+- bonus-css
+- bonus-keypress
+- bonus-touch
+- bonus-server
+- bonus-heroku
+- bonus-resources
+- final-words
+---

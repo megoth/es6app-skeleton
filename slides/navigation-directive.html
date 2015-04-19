@@ -1,0 +1,36 @@
+<h1>Creating the navigation directive</h1><p>Now that we&#39;ve created our factory and our React component, lets tie it all together as an Angular directive. Lets put the following into <code>src/directives/navigation.directive.js</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+import Navigation from &#39;./components/Navigation.jsx!&#39;;
+
+class NavigationDirective {
+  constructor() {
+    return function (scope, element) {
+      scope.$on(&#39;$stateChangeSuccess&#39;, function (event, state) {
+        var slide = state.slide;
+        var navigationElement = React.createElement(Navigation, {
+          previous: slide.previous,
+          next: slide.next
+        });
+        React.render(navigationElement, element[0]);
+      });
+    }
+  }
+}
+
+export default NavigationDirective;
+</code></pre><p>Lets look at what the above code does:</p>
+<ol>
+<li>It imports the React library and the navigation component.</li>
+<li>Sets up the class <code>NavigationDirective</code> (which it exposes as a module).</li>
+<li><p>Returns an anonymous function (the easiest way to define an Angular directive, <a href="https://docs.angularjs.org/guide/directive">read here if you want to learn more</a>), this function brings <em>scope</em> and <em>element</em> into use, which respectively refers to the scope the directive hinges on, and the element on which it is implemented.</p>
+<p>(In addition to scope and element, <em>attributes</em> and <em>controller</em> may also be supplied as parameters; but we won&#39;t make use of them in this case.)</p>
+</li>
+<li>We add an event listener to the scope, namely <code>$stateChangeSuccess</code>, which triggers every time a state is changed. The anonymous function that is triggered are given two parameter, <em>event</em> and <em>state</em>, of which we&#39;ll make use of the latter.</li>
+<li>The slide-object is fetched from the given state-parameter.</li>
+<li>It creates a React element from our navigation component. It also applies two properties to the element, namely <code>previous</code> and <code>next</code>.</li>
+<li>Finally it renders the element onto the directive element. Angular makes use of simplified implementation of <a href="http://jquery.com/">jQuery</a>, namely <a href="https://docs.angularjs.org/api/ng/function/angular.element">jQuery Lite</a>, or just jqLite for short, so to get the actual DOM-element we need to pass <code>element[0]</code>.</li>
+</ol>
+<p>At last we need to include our directive in <code>src/app.js</code>:</p>
+<pre><code>import NavigationDirective from &#39;./directives/navigation.directive&#39;;
+angular.module(&#39;workshop&#39;).directive(&#39;presentationNavigation&#39;, NavigationDirective);
+</code></pre><p>With all of this in place, we can now navigate between our slides.</p>

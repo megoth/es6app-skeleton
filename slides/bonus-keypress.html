@@ -1,0 +1,32 @@
+<h1>Bonus - Adding keypress-events</h1><p>To ease navigation between slides, I added some eventlisteners for the event <em>keydown</em>. I added these event-listeners with <code>angular.run()</code>, as these are run at the start of every application instance (and I want the eventlisteners to be global). Check out the section on <a href="https://docs.angularjs.org/guide/module#module-loading-dependencies">Module loading and dependencies</a> in the Angular guide to learn more.</p>
+<p>The code for this is located in <code>src/runs/handleKeypressEvents.js</code>:</p>
+<pre><code>class HandleKeypressEvents {
+  constructor($state, $window) {
+    // keypress event
+    $window.document.addEventListener(&#39;keydown&#39;, function (e) {
+      if(e.keyCode === 39) {
+        $state.current.slide.goNext($state);
+      } else if (e.keyCode === 37) {
+        $state.current.slide.goPrevious($state);
+      }
+    });
+  }
+}
+
+export default HandleKeypressEvents;
+</code></pre><p>This is used in <code>src/app.js</code> by including the following:</p>
+<pre><code>import HandleKeypressEvents from &#39;./runs/handleKeypressEvents&#39;;
+angular.module(&#39;workshop&#39;).run(HandleKeypressEvents);
+</code></pre><p>As you might&#39;ve noticed there are also some new methods on the slide object, namely <em>goNext</em> and <em>goPrevious</em>. These are added to <code>src/factories/slides.factory.js</code>:</p>
+<pre><code>class Slide {
+  [...]
+
+  goNext($state) {
+    $state.go(this.next ? this.next.name : this.name);
+  }
+
+  goPrevious($state) {
+    $state.go(this.previous ? this.previous.name : this.name);
+  }
+}
+</code></pre>

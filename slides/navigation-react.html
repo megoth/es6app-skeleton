@@ -1,0 +1,40 @@
+<h1>Using React with the navigation directive</h1><p>React is a powerful abstraction of the UI in web applications. In addition to rendering whatever we tell it to the DOM, it maintains <strong>React (Virtual) DOM</strong> that enables it to do some logic into when it should render and what that should be rendered. This makes it very fast.</p>
+<p>Angular in comparison renders whole parts of the DOM whenever changes are processed. For example, if we had implemented our directives with normal Angular templates, it would rerender the whole index-list every time we changed state. But instead when we use React, it limits the re-rendering to just the parts that actually change (i.e. the class active swithing to another list-item).</p>
+<p>React components can be implemented using plain JavaScript or JSX, which is JavaScript syntax extension that looks similar to XML. We&#39;ll be using the latter for this application, as it is much easier to extend once we got it up and running (which is already set up for our working environment). Using plain JavaScript when writing React components are simply put very annoying to work with.</p>
+<p>To write using JSX we save our files with the file extension <code>.jsx</code>. This in combination with importing the file with <code>&lt;whatever-file-path&gt;.jsx!</code> tells SystemJS (our module loader) that this file should be transpiled into plain JavaScript.</p>
+<p>Lets start by putting some code into <code>src/directives/components/Navigation.jsx</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+
+class Navigation extends React.Component {
+  render() {
+    var back;
+    if (this.props.previous) {
+      back = &lt;a href={this.props.previous.url} rel=&quot;prev&quot;&gt;
+        Previous: {this.props.previous.title}
+      &lt;/a&gt;;
+    }
+    var next;
+    if (this.props.next) {
+      next = &lt;a href={this.props.next.url} rel=&quot;next&quot;&gt;
+        Next: {this.props.next.title}
+      &lt;/a&gt;;
+    }
+    return (
+      &lt;nav&gt;
+        {back}
+        {next}
+      &lt;/nav&gt;
+    );
+  }
+}
+
+export default Navigation;
+</code></pre><p>Now, lets look at what this code does:</p>
+<ol>
+<li>We import React and enable its methods in our code.</li>
+<li><p>We create a <a href="https://facebook.github.io/react/docs/top-level-api.html#react.createclass">React class</a> and assign it to the variable <code>Navigation</code>. A React class represents the logic within a given component, and should always have a render-method.</p>
+<p>React classes can later on be used with <code>`React.createElement()</code> that takes the class as its first parameter, and an object that represents properties as the second. We&#39;ll come back to how these properties can be assigned to <a href="https://facebook.github.io/react/docs/top-level-api.html#react.createelement">React element</a>.</p>
+</li>
+<li>We make use of properties given to the class, which are available at <code>this.props.previousState</code> and <code>this.props.nextState</code>. These will refer to <code>slide.previous</code> and ``slide.next``` respectively.</li>
+<li>Last, we return the components expressed as a nav-element (components must always return a single top-most element), which have whichever link-elements that are available.</li>
+</ol>

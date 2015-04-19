@@ -1,0 +1,12 @@
+<h1>Setting up Angular</h1><p>First off, we need to bootstrap Angular. If we want to create an app of somewhat size, it&#39;s recommended that we include our code in a given namespace. Lets call ours <code>workshop</code>.</p>
+<p>Open <code>src/app.js</code> and include the following:</p>
+<pre><code>import angular from &#39;angular&#39;;
+angular.module(&#39;workshop&#39;, []);
+</code></pre><p>Also, change <code>&lt;body&gt;</code> in <code>index.html</code> to <code>&lt;body ng-app=&quot;workshop&quot;&gt;</code>. This is all we need to change in index.html to make Angular start doing its work.</p>
+<h2 id="scopes-in-angular">Scopes in Angular</h2>
+<p>One important fact to note at this point is concept of <a href="https://docs.angularjs.org/guide/scope">scopes in Angular</a>. Scopes refer to the application model, and mimics the hierarchical structure of the DOM structure.</p>
+<p>There are two main purposes of scopes:</p>
+<ol>
+<li><strong>To convey &quot;the single truth&quot; about your models:</strong> as the scope is shared by all components connected to the view (and also services and factories through <code>$rootScope</code>, which is at the top of the scope-hierarchy) it can be used to share states of whatever you need to model.</li>
+<li><strong>To communicate between components:</strong> Again, as scopes are shared between all components connected to the view, they can also communicate through the hierarchy. This is done by utilizing <code>(scope).$on()</code>, <code>(scope).$broadcast()</code>, and <code>(scope).$emit()</code>.</li>
+</ol>

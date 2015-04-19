@@ -1,0 +1,379 @@
+/* line 5, ../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 39, ../sass/style.sass */
+body {
+  background-color: #f0db4f;
+  background-image: url("../img/logo.png");
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  font-family: Arial, Times New Roman;
+  line-height: 1.25em;
+  margin: 0.5em;
+  padding-bottom: 100px;
+}
+/* line 48, ../sass/style.sass */
+body > aside,
+body > [role="main"] {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 60em) {
+  /* line 53, ../sass/style.sass */
+  body > [role="directory"],
+  body > [role="main"],
+  body progress-list > div,
+  body help-queue > div {
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+    border-radius: 0.5em;
+    -moz-box-shadow: 0px 0px 5px #333333;
+    -webkit-box-shadow: 0px 0px 5px #333333;
+    box-shadow: 0px 0px 5px #333333;
+    background-color: #fff;
+    color: #000;
+    padding: 0.5em;
+    margin-bottom: 1em;
+  }
+  /* line 22, ../sass/style.sass */
+  body > [role="directory"] a,
+  body > [role="main"] a,
+  body progress-list > div a,
+  body help-queue > div a {
+    color: #6371BB;
+  }
+  /* line 24, ../sass/style.sass */
+  body > [role="directory"] a:hover,
+  body > [role="main"] a:hover,
+  body progress-list > div a:hover,
+  body help-queue > div a:hover {
+    text-decoration: underline;
+  }
+  /* line 26, ../sass/style.sass */
+  body > [role="directory"] h1, body > [role="directory"] h2,
+  body > [role="main"] h1,
+  body > [role="main"] h2,
+  body progress-list > div h1,
+  body progress-list > div h2,
+  body help-queue > div h1,
+  body help-queue > div h2 {
+    color: #000;
+    font-weight: bold;
+    line-height: 1em;
+    -webkit-text-stroke-color: #fff;
+  }
+  /* line 31, ../sass/style.sass */
+  body > [role="directory"] h1 ~ h2,
+  body > [role="directory"] h1 ~ h3,
+  body > [role="main"] h1 ~ h2,
+  body > [role="main"] h1 ~ h3,
+  body progress-list > div h1 ~ h2,
+  body progress-list > div h1 ~ h3,
+  body help-queue > div h1 ~ h2,
+  body help-queue > div h1 ~ h3 {
+    border-style: dotted;
+  }
+  /* line 34, ../sass/style.sass */
+  body > [role="directory"] nav a,
+  body > [role="main"] nav a,
+  body progress-list > div nav a,
+  body help-queue > div nav a {
+    color: #000;
+  }
+  /* line 36, ../sass/style.sass */
+  body > [role="directory"] nav a:hover,
+  body > [role="main"] nav a:hover,
+  body progress-list > div nav a:hover,
+  body help-queue > div nav a:hover {
+    text-decoration: none;
+  }
+}
+@media screen and (min-width: 60em) {
+  /* line 39, ../sass/style.sass */
+  body {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background-position: bottom right;
+    margin: 1em 0;
+    padding-bottom: 0;
+    width: 100%;
+  }
+  /* line 68, ../sass/style.sass */
+  body > * {
+    padding: 0.5em;
+  }
+  /* line 70, ../sass/style.sass */
+  body > aside {
+    color: #323330;
+    width: 20%;
+  }
+  /* line 73, ../sass/style.sass */
+  body > aside[role="directory"] {
+    -webkit-order: 0;
+    order: 0;
+  }
+  /* line 75, ../sass/style.sass */
+  body > aside#updates {
+    -webkit-order: 2;
+    order: 2;
+  }
+  /* line 77, ../sass/style.sass */
+  body > [role="main"] {
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    -moz-box-shadow: 0px 0px 5px #333333;
+    -webkit-box-shadow: 0px 0px 5px #333333;
+    box-shadow: 0px 0px 5px #333333;
+    background-color: #fff;
+    color: #000;
+    padding: 1em;
+    -webkit-order: 1;
+    order: 1;
+    margin: 0 1%;
+    width: 58%;
+  }
+  /* line 22, ../sass/style.sass */
+  body > [role="main"] a {
+    color: #6371BB;
+  }
+  /* line 24, ../sass/style.sass */
+  body > [role="main"] a:hover {
+    text-decoration: underline;
+  }
+  /* line 26, ../sass/style.sass */
+  body > [role="main"] h1, body > [role="main"] h2 {
+    color: #000;
+    font-weight: bold;
+    line-height: 1em;
+    -webkit-text-stroke-color: #fff;
+  }
+  /* line 31, ../sass/style.sass */
+  body > [role="main"] h1 ~ h2,
+  body > [role="main"] h1 ~ h3 {
+    border-style: dotted;
+  }
+  /* line 34, ../sass/style.sass */
+  body > [role="main"] nav a {
+    color: #000;
+  }
+  /* line 36, ../sass/style.sass */
+  body > [role="main"] nav a:hover {
+    text-decoration: none;
+  }
+}
+
+/* line 83, ../sass/style.sass */
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+/* line 87, ../sass/style.sass */
+[role="main"] {
+  line-height: 1.5em;
+}
+/* line 89, ../sass/style.sass */
+[role="main"] nav {
+  overflow: hidden;
+  *zoom: 1;
+  border-top: solid 1px #000;
+  margin-top: 1em;
+  padding-top: 0.5em;
+}
+/* line 94, ../sass/style.sass */
+[role="main"] nav [rel="next"] {
+  float: right;
+}
+/* line 96, ../sass/style.sass */
+[role="main"] nav [rel="next"] i {
+  margin-left: 0.25em;
+}
+/* line 98, ../sass/style.sass */
+[role="main"] nav [rel="prev"] {
+  float: left;
+}
+/* line 100, ../sass/style.sass */
+[role="main"] nav [rel="prev"] i {
+  margin-right: 0.25em;
+}
+
+/* line 103, ../sass/style.sass */
+code {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #323330;
+  color: #f0db4f;
+  font-family: Lucida Console, Courier New, Monaco;
+  padding: 2px 4px;
+  vertical-align: middle;
+}
+
+/* line 110, ../sass/style.sass */
+em {
+  font-style: italic;
+}
+
+/* line 112, ../sass/style.sass */
+h1, h2, h3, h4, h5, h6 {
+  border-bottom: solid 1px #323330;
+  font-family: Tahoma, Verdana;
+  font-weight: bolder;
+  line-height: 1.15em;
+  margin: 0.25em 0 0.5em;
+}
+
+/* line 118, ../sass/style.sass */
+h1, h2 {
+  -webkit-text-stroke-color: #f0db4f;
+  -webkit-text-stroke-width: 1px;
+}
+
+/* line 121, ../sass/style.sass */
+h1 {
+  font-size: 2em;
+}
+
+/* line 123, ../sass/style.sass */
+h2 {
+  font-size: 1.5em;
+}
+
+/* line 125, ../sass/style.sass */
+ol,
+ul {
+  margin-bottom: 0.75em;
+}
+/* line 128, ../sass/style.sass */
+ol li,
+ul li {
+  margin-bottom: 0.5em;
+}
+/* line 130, ../sass/style.sass */
+ol p,
+ul p {
+  margin-bottom: 0.5em;
+}
+
+/* line 132, ../sass/style.sass */
+ol {
+  list-style-type: decimal;
+  margin-left: 1.25em;
+}
+
+/* line 135, ../sass/style.sass */
+p {
+  margin-bottom: 0.75em;
+}
+
+/* line 137, ../sass/style.sass */
+pre code {
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+  display: block;
+  line-height: 1em;
+  margin: 0.5em 0 0.75em;
+  overflow-x: auto;
+  padding: 0.5em;
+}
+
+/* line 145, ../sass/style.sass */
+strong {
+  font-weight: bold;
+}
+
+/* line 147, ../sass/style.sass */
+u {
+  text-decoration: underline;
+}
+
+/* line 149, ../sass/style.sass */
+ul {
+  list-style-type: disc;
+  margin-left: 1.25em;
+}
+
+/* line 154, ../sass/style.sass */
+nav a {
+  display: block;
+}
+/* line 156, ../sass/style.sass */
+nav a:hover {
+  font-weight: bold;
+}
+/* line 158, ../sass/style.sass */
+nav ul {
+  list-style-type: none;
+  margin-left: 0;
+}
+/* line 161, ../sass/style.sass */
+nav ul .active {
+  font-weight: bold;
+}

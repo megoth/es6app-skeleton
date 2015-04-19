@@ -1,0 +1,27 @@
+<h1>Setting up the help queue directive</h1><p>Finally we tie it all together in <code>src/directives/helpQueue.directive.js</code>:</p>
+<pre><code>import React from &#39;react&#39;;
+import HelpQueue from &#39;./components/HelpQueue.jsx!&#39;;
+
+class HelpQueueDirective {
+  constructor(socketService) {
+    return function (scope, element) {
+      socketService.onPleadsUpdate(function (users) {
+        var handleUserInput = function (username, isAskingForHelp) {
+          socketService.emitAskingForHelp(username, isAskingForHelp);
+        };
+        var helpQueueElement = React.createElement(HelpQueue, {
+          users: users,
+          handleUserInput: handleUserInput
+        });
+        React.render(helpQueueElement, element[0]);
+      });
+    };
+  }
+}
+
+export default HelpQueueDirective;
+</code></pre><p>Once again we make use of the socketService, and tells the application to render the list of users in need of help every time it gets an update from the server. We also create the <em>handleUserInput</em> that we pass down to the HelpButton-component.</p>
+<p>Remember to include the directive in <code>src/app.js</code>:</p>
+<pre><code>import HelpQueueDirective from &#39;./directives/helpQueue.directive&#39;;
+angular.module(&#39;workshop&#39;).directive(&#39;helpQueue&#39;, HelpQueueDirective);
+</code></pre>

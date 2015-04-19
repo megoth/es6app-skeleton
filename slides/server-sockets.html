@@ -1,0 +1,17 @@
+<h1>A Protocol for messages to use with our sockets</h1><p>We won&#39;t go into the details of the server here (check out the bonus slide if you want to know more), but we will look at the messages that we support across the server and the client.</p>
+<h2 id="from-client-to-server">From client to server</h2>
+<p>These are the commands that the client can use to notify the server.</p>
+<ul>
+<li><strong>updateProgress:</strong> This command tells the server which slide the client is currently visiting. It supplies one variable, which is the index of the current step the user is on.</li>
+<li><strong>isAskingForHelp:</strong> This command updates the server whether or not the user needs help. It supplies two variables, the username and a boolean telling whether or not the user needs help.</li>
+</ul>
+<h2 id="from-server-to-client">From server to client</h2>
+<p>The server keeps track of all connections made from clients, and sends out regular updates to all of its connected clients.</p>
+<ul>
+<li><p><strong>updateProgressList:</strong> This command gives the client the list of progress made by the visitors of the application. The list is sorted by the index of the slides, and each entry gives the number of visitors.</p>
+<p>An example: <code>[null, 2, 1]</code> says that there a no users at slide 0, 2 users in slide 1, and 1 user in slide 2.</p>
+</li>
+<li><p><strong>updatePleadsList:</strong> This command supplies the list of users currently in need of help. The list is sorted by the index of the slides.</p>
+<p>An example: <code>[{username: &#39;foo&#39;, progress: 1}, {username: &#39;bar&#39;, progress: 2}]</code> tells us that the users foo and bar is in need of help, respectively at slide 1 and slide 2.</p>
+</li>
+</ul>
