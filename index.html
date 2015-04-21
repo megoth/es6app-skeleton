@@ -7,7 +7,7 @@
   <title>Workshop with ES6, JSPM, Angular, React, +++</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body ng-app="workshop">
+<body>
   <div role="main">
     <ui-view>Loading...</ui-view>
     <presentation-navigation></presentation-navigation>
@@ -18,7 +18,6 @@
   </aside>
   <aside role="directory" presentation-index></aside>
   <script src="jspm_packages/system.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
   <script src="config.js"></script>
   <script>
     System.import('src/app');
